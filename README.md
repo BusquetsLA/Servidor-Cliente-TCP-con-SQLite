@@ -6,13 +6,14 @@ Este proyecto implementa un **servidor TCP** en `localhost:5000` que recibe mens
 ## Estructura:
 - `server.py`: servidor con modularización y comentarios.
 - `client.py`: cliente interactivo para enviar mensajes.
+- `inspect_db.py`: utilidad para listar los últimos registros de la DB.
 - `messages.db`: se creará automáticamente al iniciar el servidor.
 
 ## Requisitos:
 - Python 3.8+ (no requiere librerías externas; usa solo la librería estándar: `socket`, `sqlite3`).
 
 ## Instrucciones (Windows):
-1. Abrr una terminal (PowerShell o cmd) en la carpeta del proyecto.
+1. Abrir una terminal (PowerShell o cmd) en la carpeta del proyecto.
 2. Iniciar el servidor:
    ```powershell
    python server.py
@@ -38,6 +39,22 @@ Cada mensaje enviado se guarda en `messages.db` con los campos:
 - Verificar en la DB (opcional):
   ```powershell
   python -c "import sqlite3; import sys;\ncon=sqlite3.connect('messages.db');\ncur=con.cursor();\nfor r in cur.execute('SELECT id, contenido, fecha_envio, ip_cliente FROM mensajes ORDER BY id DESC LIMIT 5'): print(r);\ncon.close()"
+  ```
+
+## Utilidad: `inspect_db.py`
+Para facilitar la consulta de los últimos registros, se le pueden pasar algunas flags.
+
+- Mostrar los últimos 10 registros (por defecto):
+  ```powershell
+  python inspect_db.py
+  ```
+- Especificar cantidad (por ejemplo, 25):
+  ```powershell
+  python inspect_db.py --limit 25
+  ```
+- Usar una base de datos en otra ruta:
+  ```powershell
+  python inspect_db.py --db "C:\\ruta\\a\\otra\\messages.db" --limit 5
   ```
 
 ## Manejo de errores:

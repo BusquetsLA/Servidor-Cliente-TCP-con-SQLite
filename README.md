@@ -38,7 +38,7 @@ Cada mensaje enviado se guarda en `messages.db` con los campos:
   - Varios mensajes seguidos.
 - Verificar en la DB (opcional):
   ```powershell
-  python -c "import sqlite3; import sys;\ncon=sqlite3.connect('messages.db');\ncur=con.cursor();\nfor r in cur.execute('SELECT id, contenido, fecha_envio, ip_cliente FROM mensajes ORDER BY id DESC LIMIT 5'): print(r);\ncon.close()"
+  python -c "import sqlite3; con=sqlite3.connect('messages.db'); cur=con.cursor(); rows=cur.execute('SELECT id, contenido, fecha_envio, ip_cliente FROM mensajes ORDER BY id DESC LIMIT 10').fetchall(); con.close(); [print(r) for r in rows]"
   ```
 
 ## Utilidad: `inspect_db.py`
